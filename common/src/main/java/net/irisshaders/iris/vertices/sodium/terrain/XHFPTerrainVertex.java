@@ -81,10 +81,11 @@ public class XHFPTerrainVertex implements ChunkVertexEncoder {
 	}
 
 	private static int encodeLight(int light) {
-		int sky = Mth.clamp(light >>> 16 & 255, 8, 248);
-		int block = Mth.clamp(light >>> 0 & 255, 8, 248);
-		return block << 0 | sky << 8;
-	}
+        int sky = Mth.clamp(((light >>> 16) & 0xFF) + 8, 8, 248);
+        int block = Mth.clamp(((light >>>  0) & 0xFF) + 8, 8, 248);
+
+        return (block << 0) | (sky << 8);
+    }
 
 	private static int sign(int x) {
 		// Shift the sign-bit to the least significant bit's position
